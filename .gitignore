@@ -4,3 +4,10 @@ dist/
 .DS_Store
 *.log
 temp_screenshot/
+BizWiz_Screenshots/
+*.pdf
+*.docx
+*.pptx
+*.html
+Project_Writeup.md
+desktop.ini
