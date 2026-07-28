@@ -1,0 +1,193 @@
+/*
+ * index.css — Global Design System
+ * Applies Tailwind base/components/utilities layers and
+ * defines reusable component classes for the BizWiz platform.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Layer ────────────────────────────────────────────────────────────── */
+@layer base {
+  /* Box model & scroll */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+  /* Default page: light off-white background, deep slate text */
+  body {
+    @apply bg-background text-primary-900 font-sans dark:bg-slate-950 dark:text-slate-300 transition-colors duration-200;
+    min-height: 100vh;
+  }
+
+  /* Heading hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold leading-tight text-primary-900 dark:text-white transition-colors duration-200;
+  }
+
+  /* Focus ring — accessible, brand-consistent */
+  :focus-visible {
+    @apply outline-none ring-2 ring-secondary-500 ring-offset-2;
+  }
+
+  /* Scrollbar — slim & branded */
+  ::-webkit-scrollbar          { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track    { @apply bg-primary-100; }
+  ::-webkit-scrollbar-thumb    { @apply bg-primary-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-secondary-500; }
+}
+
+/* ─── Component Layer ───────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Buttons ──────────────────────────────────────────────────────────────── */
+
+  /* Primary action — filled blue with shadow glow */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5
+           bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700
+           text-white text-sm font-semibold
+           rounded-xl shadow-blue hover:shadow-lg
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5
+           text-primary-700
+           border border-primary-200 hover:border-primary-300 dark:border-slate-700 dark:hover:border-slate-600
+           bg-white hover:bg-primary-50 dark:bg-slate-800 dark:hover:bg-slate-700
+           hover:text-primary-900 text-sm font-semibold dark:text-slate-300 dark:hover:text-white
+           rounded-xl shadow-card hover:shadow-card-hover
+           transition-all duration-200;
+  }
+
+  /* Accent action — amber, used for highlights/badges */
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5
+           bg-accent-500 hover:bg-accent-600
+           text-white text-sm font-semibold
+           rounded-xl transition-all duration-200;
+  }
+
+  /* Danger/destructive action */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           px-4 py-2
+           bg-red-50 hover:bg-red-100 border border-red-200
+           text-red-600 hover:text-red-700 text-sm font-medium
+           rounded-xl transition-all duration-200;
+  }
+
+  /* ── Form Inputs ──────────────────────────────────────────────────────────── */
+
+  .input-field {
+    @apply w-full px-4 py-2.5
+           text-primary-900 bg-white border border-primary-200 dark:bg-slate-900 dark:border-slate-700 dark:text-white
+           placeholder-primary-400 dark:placeholder-slate-500 text-sm
+           rounded-xl shadow-inner-sm
+           focus:outline-none focus:border-secondary-400 focus:ring-2 focus:ring-secondary-100 dark:focus:ring-secondary-900/50
+           transition-all duration-200;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium mb-1.5 text-primary-700 dark:text-slate-300 transition-colors duration-200;
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────────── */
+
+  /* Standard white card */
+  .card {
+    @apply bg-white border border-primary-100 rounded-2xl shadow-card dark:bg-slate-900 dark:border-slate-800
+           transition-all duration-300
+           hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+
+  /* Flat card without hover lift — for content areas */
+  .card-flat {
+    @apply bg-white border border-primary-100 rounded-2xl shadow-card p-6 dark:bg-slate-900 dark:border-slate-800 transition-colors duration-200;
+  }
+
+  /* Dark card for contrast sections */
+  .card-dark {
+    @apply bg-primary-900 border border-primary-800 rounded-2xl text-white;
+  }
+
+  /* ── Badges / Tags ───────────────────────────────────────────────────────── */
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5
+           text-xs font-semibold rounded-full;
+  }
+  .badge-blue   { @apply badge bg-secondary-50 text-secondary-700 border border-secondary-200; }
+  .badge-amber  { @apply badge bg-accent-50 text-accent-700 border border-accent-200; }
+  .badge-green  { @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200; }
+  .badge-red    { @apply badge bg-red-50 text-red-700 border border-red-200; }
+  .badge-slate  { @apply badge bg-primary-100 text-primary-600; }
+
+  /* ── Loading Spinner ─────────────────────────────────────────────────────── */
+
+  .spinner {
+    @apply w-8 h-8 border-[3px] border-primary-200 border-t-secondary-500
+           rounded-full animate-spin;
+  }
+  .spinner-sm {
+    @apply w-4 h-4 border-2 border-primary-200 border-t-secondary-500
+           rounded-full animate-spin;
+  }
+
+  /* ── Section & Typography Helpers ───────────────────────────────────────── */
+
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl font-bold text-primary-900 dark:text-white transition-colors duration-200;
+  }
+  .section-sub {
+    @apply text-base md:text-lg mt-2 max-w-xl text-primary-500 dark:text-slate-400 transition-colors duration-200;
+  }
+
+  /* Blue gradient text for hero accents */
+  .gradient-text {
+    @apply bg-gradient-to-r from-secondary-500 to-accent-500
+           bg-clip-text text-transparent;
+  }
+
+  /* ── Navigation ──────────────────────────────────────────────────────────── */
+
+  .nav-link {
+    @apply text-sm font-medium text-primary-600 hover:text-secondary-600
+           transition-colors duration-150 relative
+           after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5
+           after:bg-secondary-500 after:transition-all after:duration-200
+           hover:after:w-full;
+  }
+
+  .nav-link-active {
+    @apply text-secondary-600 after:w-full;
+  }
+
+  /* ── Utility: Page Wrapper ───────────────────────────────────────────────── */
+
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* ─── Utility Layer ─────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Glass effect for light surfaces */
+  .glass-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  /* Subtle dot-grid background pattern */
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
